@@ -8,6 +8,7 @@
 
 
 class UCharacterMovementComponent;
+class USpringArmComponent;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), BlueprintType, Blueprintable)
 class ACTIONCOMBAT_API USRS_LockOnComponent : public UActorComponent
@@ -37,7 +38,13 @@ private:
 	UPROPERTY()
 	UCharacterMovementComponent* OwnerMovementComponent;
 
+	UPROPERTY()
+	USpringArmComponent* OwnerSpringArm;
+
 	bool bIsLockOnActive { false };
 
 	TWeakObjectPtr<AActor> TargetActor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	float MaxLockOnDistance { 1200.f };
 };

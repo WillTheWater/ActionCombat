@@ -5,6 +5,7 @@
 
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
 
@@ -20,6 +21,19 @@ void USRS_LockOnComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 	if (!bIsLockOnActive || !TargetActor.IsValid()) { return; }
 	FVector OwnerLocation = GetOwner()->GetActorLocation();
 	FVector TargetLocation = TargetActor->GetActorLocation();
+	// Check distance and toggle off if too far
+	float Distance = FVector::Dist(OwnerLocation, TargetLocation);
+	if (Distance > MaxLockOnDistance)
+	{
+		bIsLockOnActive = false;
+		TargetActor = nullptr;
+		OwnerController->ResetIgnoreLookInput();
+		OwnerMovementComponent->bOrientRotationToMovement = true;
+		OwnerMovementComponent->bUseControllerDesiredRotation = false;
+		OwnerSpringArm->TargetOffset = FVector::ZeroVector;
+		return;
+	}
+	TargetLocation.Z -= 125.f; 
 	FRotator TargetRotation = UKismetMathLibrary::FindLookAtRotation(OwnerLocation, TargetLocation);
 	OwnerController->SetControlRotation(TargetRotation);
 }
@@ -49,13 +63,15 @@ void USRS_LockOnComponent::ToggleLockOn(float TraceRadius)
 		OwnerController->SetIgnoreLookInput(true);
 		OwnerMovementComponent->bOrientRotationToMovement = false;
 		OwnerMovementComponent->bUseControllerDesiredRotation = true;
+		OwnerSpringArm->TargetOffset = FVector { 0.0f, 0.0f, 100.0f };
 	}
 	else
 	{
 		TargetActor = nullptr;
-		OwnerController->SetIgnoreLookInput(false);
+		OwnerController->ResetIgnoreLookInput();
 		OwnerMovementComponent->bOrientRotationToMovement = true;
 		OwnerMovementComponent->bUseControllerDesiredRotation = false;
+		OwnerSpringArm->TargetOffset = FVector::ZeroVector;
 	}
 }
 
@@ -65,4 +81,5 @@ void USRS_LockOnComponent::BeginPlay()
 	OwnerCharacter = Cast<ACharacter>(GetOwner());
 	OwnerController = Cast<APlayerController>(OwnerCharacter->GetController());
 	OwnerMovementComponent = OwnerCharacter->GetCharacterMovement();
+	OwnerSpringArm = Cast<USpringArmComponent>(OwnerCharacter->GetComponentByClass(USpringArmComponent::StaticClass()));
 }
