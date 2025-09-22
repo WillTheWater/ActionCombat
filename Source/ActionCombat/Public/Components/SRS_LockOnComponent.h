@@ -16,7 +16,7 @@ public:
 	USRS_LockOnComponent();
 
 	UFUNCTION(BlueprintCallable, Category = "Action Combat")
-	void ToggleLockOn();
+	void ToggleLockOn(float TraceRadius = 800.f);
 
 protected:
 	virtual void BeginPlay() override;
