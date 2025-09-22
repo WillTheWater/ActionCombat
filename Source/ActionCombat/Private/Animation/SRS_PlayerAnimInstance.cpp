@@ -3,3 +3,11 @@
 
 #include "Animation/SRS_PlayerAnimInstance.h"
 
+void USRS_PlayerAnimInstance::UpdateVelocity()
+{
+	APawn* PlayerPawn = TryGetPawnOwner();
+	if (PlayerPawn)
+	{
+		Velocity = PlayerPawn->GetVelocity().Length();
+	}
+}

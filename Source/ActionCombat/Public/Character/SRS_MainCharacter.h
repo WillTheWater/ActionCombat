@@ -6,7 +6,7 @@
 #include "GameFramework/Character.h"
 #include "SRS_MainCharacter.generated.h"
 
-UCLASS()
+UCLASS(PrioritizeCategories="Action Combat")
 class ACTIONCOMBAT_API ASRS_MainCharacter : public ACharacter
 {
 	GENERATED_BODY()
