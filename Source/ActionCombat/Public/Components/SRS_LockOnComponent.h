@@ -14,7 +14,9 @@ class ACTIONCOMBAT_API USRS_LockOnComponent : public UActorComponent
 
 public:
 	USRS_LockOnComponent();
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void ToggleLockOn();
 
 protected:
 	virtual void BeginPlay() override;

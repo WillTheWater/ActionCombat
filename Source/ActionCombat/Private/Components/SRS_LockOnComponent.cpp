@@ -9,14 +9,12 @@ USRS_LockOnComponent::USRS_LockOnComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+void USRS_LockOnComponent::ToggleLockOn()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Lock On Toggled"));
+}
+
 void USRS_LockOnComponent::BeginPlay()
 {
 	Super::BeginPlay();
 }
-
-void USRS_LockOnComponent::TickComponent(float DeltaTime, ELevelTick TickType,
-                                         FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-}
-
