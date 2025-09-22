@@ -6,9 +6,6 @@
 #include "Animation/AnimInstance.h"
 #include "SRS_PlayerAnimInstance.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class ACTIONCOMBAT_API USRS_PlayerAnimInstance : public UAnimInstance
 {
