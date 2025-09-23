@@ -7,6 +7,8 @@
 #include "Interfaces/SRS_PlayerInterface.h"
 #include "SRS_MainCharacter.generated.h"
 
+class USRS_PlayerAnimInstance;
+
 UCLASS(PrioritizeCategories="Action Combat")
 class ACTIONCOMBAT_API ASRS_MainCharacter : public ACharacter, public ISRS_PlayerInterface
 {
@@ -18,6 +20,9 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
+
+	UPROPERTY(BLueprintReadOnly, Category = "Action Combat")
+	USRS_PlayerAnimInstance* PlayerAnimInstance;
 
 private:
 };

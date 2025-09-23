@@ -11,6 +11,10 @@ class ACTIONCOMBAT_API USRS_PlayerAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 
+public:
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void UpdateTarget(AActor* Target);
+
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat")
 	float Velocity { 0.f };
@@ -23,4 +27,7 @@ protected:
 
 	UFUNCTION(BlueprintCallable, Category = "Action Combat")
 	void UpdateVelocity();
+
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void UpdateDirection();
 };
