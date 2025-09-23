@@ -15,6 +15,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat")
 	float Velocity { 0.f };
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat")
+	float Direction { 0.f };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat")
+	bool bIsInCombat { false };
+
 	UFUNCTION(BlueprintCallable, Category = "Action Combat")
 	void UpdateVelocity();
 };

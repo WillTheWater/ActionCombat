@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "SRS_LockOnComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_OneParam(FOnLockOnTarget, USRS_LockOnComponent, OnLockOnTarget, AActor*, TargetActor);
 
 class UCharacterMovementComponent;
 class USpringArmComponent;
@@ -24,6 +25,9 @@ public:
 
 	bool IsLockOnActive() const { return bIsLockOnActive; }
 	AActor* GetTargetActor() const { return TargetActor.Get(); }
+
+	UPROPERTY(BlueprintAssignable, Category = "Action Combat")
+	FOnLockOnTarget OnLockOnTarget;
 
 protected:
 	virtual void BeginPlay() override;

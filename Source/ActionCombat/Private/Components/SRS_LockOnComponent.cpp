@@ -60,6 +60,7 @@ void USRS_LockOnComponent::ToggleLockOn(float TraceRadius)
 		OwnerMovementComponent->bUseControllerDesiredRotation = true;
 		OwnerSpringArm->TargetOffset = FVector { 0.0f, 0.0f, 100.0f };
 		ISRS_EnemyInterface::Execute_ToggleLockOn(TargetActor.Get(), bIsLockOnActive);
+		OnLockOnTarget.Broadcast(TargetActor.Get());
 	}
 	else
 	{
@@ -85,4 +86,5 @@ void USRS_LockOnComponent::BreakLockOn()
 	OwnerMovementComponent->bOrientRotationToMovement = true;
 	OwnerMovementComponent->bUseControllerDesiredRotation = false;
 	OwnerSpringArm->TargetOffset = FVector::ZeroVector;
+	OnLockOnTarget.Broadcast(TargetActor.Get());
 }
