@@ -47,4 +47,6 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
 	float MaxLockOnDistance { 1200.f };
+
+	void BreakLockOn();
 };

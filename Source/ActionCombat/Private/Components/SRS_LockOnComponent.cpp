@@ -15,22 +15,16 @@ USRS_LockOnComponent::USRS_LockOnComponent()
 }
 
 void USRS_LockOnComponent::TickComponent(float DeltaTime, ELevelTick TickType,
-	FActorComponentTickFunction* ThisTickFunction)
+                                         FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	if (!bIsLockOnActive || !TargetActor.IsValid()) { return; }
 	FVector OwnerLocation = GetOwner()->GetActorLocation();
 	FVector TargetLocation = TargetActor->GetActorLocation();
-	// Check distance and toggle off if too far
 	float Distance = FVector::Dist(OwnerLocation, TargetLocation);
 	if (Distance > MaxLockOnDistance)
 	{
-		bIsLockOnActive = false;
-		TargetActor = nullptr;
-		OwnerController->ResetIgnoreLookInput();
-		OwnerMovementComponent->bOrientRotationToMovement = true;
-		OwnerMovementComponent->bUseControllerDesiredRotation = false;
-		OwnerSpringArm->TargetOffset = FVector::ZeroVector;
+		BreakLockOn();
 		return;
 	}
 	TargetLocation.Z -= 125.f; 
@@ -67,11 +61,7 @@ void USRS_LockOnComponent::ToggleLockOn(float TraceRadius)
 	}
 	else
 	{
-		TargetActor = nullptr;
-		OwnerController->ResetIgnoreLookInput();
-		OwnerMovementComponent->bOrientRotationToMovement = true;
-		OwnerMovementComponent->bUseControllerDesiredRotation = false;
-		OwnerSpringArm->TargetOffset = FVector::ZeroVector;
+		BreakLockOn();
 	}
 }
 
@@ -82,4 +72,14 @@ void USRS_LockOnComponent::BeginPlay()
 	OwnerController = Cast<APlayerController>(OwnerCharacter->GetController());
 	OwnerMovementComponent = OwnerCharacter->GetCharacterMovement();
 	OwnerSpringArm = Cast<USpringArmComponent>(OwnerCharacter->GetComponentByClass(USpringArmComponent::StaticClass()));
+}
+
+void USRS_LockOnComponent::BreakLockOn()
+{
+	bIsLockOnActive = false;
+	TargetActor = nullptr;
+	OwnerController->ResetIgnoreLookInput();
+	OwnerMovementComponent->bOrientRotationToMovement = true;
+	OwnerMovementComponent->bUseControllerDesiredRotation = false;
+	OwnerSpringArm->TargetOffset = FVector::ZeroVector;
 }
