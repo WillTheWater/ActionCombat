@@ -4,20 +4,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Interfaces/SRS_PlayerInterface.h"
-#include "SRS_MainCharacter.generated.h"
+#include "Interfaces/SRS_EnemyInterface.h"
+#include "SRS_Boss.generated.h"
 
-UCLASS(PrioritizeCategories="Action Combat")
-class ACTIONCOMBAT_API ASRS_MainCharacter : public ACharacter, public ISRS_PlayerInterface
+UCLASS()
+class ACTIONCOMBAT_API ASRS_Boss : public ACharacter, public ISRS_EnemyInterface
 {
 	GENERATED_BODY()
 
 public:
-	ASRS_MainCharacter();
+	ASRS_Boss();
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
 	virtual void BeginPlay() override;
-
-private:
 };

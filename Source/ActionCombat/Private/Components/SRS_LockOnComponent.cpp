@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Interfaces/SRS_EnemyInterface.h"
 #include "Kismet/KismetMathLibrary.h"
 
 
@@ -51,16 +52,18 @@ void USRS_LockOnComponent::ToggleLockOn(float TraceRadius)
 		Params
 	);
 	
-	if (bIsLockOnActive && HasFoundTarget && Hit.GetActor())
+	if (bIsLockOnActive && HasFoundTarget && Hit.GetActor()->Implements<USRS_EnemyInterface>())
 	{
 		TargetActor = Hit.GetActor();
 		OwnerController->SetIgnoreLookInput(true);
 		OwnerMovementComponent->bOrientRotationToMovement = false;
 		OwnerMovementComponent->bUseControllerDesiredRotation = true;
 		OwnerSpringArm->TargetOffset = FVector { 0.0f, 0.0f, 100.0f };
+		ISRS_EnemyInterface::Execute_ToggleLockOn(TargetActor.Get(), bIsLockOnActive);
 	}
 	else
 	{
+		ISRS_EnemyInterface::Execute_ToggleLockOn(TargetActor.Get(), bIsLockOnActive);
 		BreakLockOn();
 	}
 }
