@@ -3,6 +3,8 @@
 
 #include "Components/SRS_TraceComponent.h"
 
+#include "Engine/DamageEvents.h"
+#include "Interfaces/SRS_FighterInterface.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
 
@@ -17,7 +19,6 @@ void USRS_TraceComponent::BeginPlay()
 	Super::BeginPlay();
 
 	OwnerSkeletalMesh = GetOwner()->FindComponentByClass<USkeletalMeshComponent>();
-	
 }
 
 
@@ -46,10 +47,26 @@ void USRS_TraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 		TraceParams
 	);
 
-	if (bHasHitTarget)
+	if (bHasHitTarget && OutHits.Num() > 0)
 	{
-		// Do something with the hit results.
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Hit!"));
+		float CharacterDamage = 0.0f;
+		FDamageEvent DamageEvent;
+		ISRS_FighterInterface* FighterInterface = Cast<ISRS_FighterInterface>(GetOwner());
+		if (FighterInterface)
+		{
+			CharacterDamage = FighterInterface->GetDamage();
+		}
+		for (const FHitResult& Hit : OutHits)
+		{
+			AActor* HitActor = Hit.GetActor();
+			HitActor->TakeDamage
+			(
+				CharacterDamage,
+				DamageEvent,
+				GetOwner()->GetInstigatorController(),
+				GetOwner()
+			);
+		}
 	}
 	if (bShouldDrawDebugShapes)
 	{

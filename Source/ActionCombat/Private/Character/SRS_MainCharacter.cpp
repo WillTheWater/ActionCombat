@@ -23,3 +23,8 @@ void ASRS_MainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+float ASRS_MainCharacter::GetDamage()
+{
+	return 10.f;
+}
+
