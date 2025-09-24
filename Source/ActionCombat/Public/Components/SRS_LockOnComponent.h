@@ -11,7 +11,7 @@ DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_OneParam(FOnLockOnTarget, USRS_LockOnC
 class UCharacterMovementComponent;
 class USpringArmComponent;
 
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), BlueprintType, Blueprintable)
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), BlueprintType, Blueprintable, PrioritizeCategories="Action Combat")
 class ACTIONCOMBAT_API USRS_LockOnComponent : public UActorComponent
 {
 	GENERATED_BODY()
