@@ -23,6 +23,4 @@ protected:
 
 	UPROPERTY(BLueprintReadOnly, Category = "Action Combat")
 	USRS_PlayerAnimInstance* PlayerAnimInstance;
-
-private:
 };

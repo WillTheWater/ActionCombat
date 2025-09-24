@@ -13,15 +13,27 @@ class ACTIONCOMBAT_API USRS_CombatComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this component's properties
 	USRS_CombatComponent();
 
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void ComboAttack();
+
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void ResetAttack();
+
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-	                           FActorComponentTickFunction* ThisTickFunction) override;
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	TArray<UAnimMontage*> AttackMontages;
+
+	UPROPERTY()
+	ACharacter* OwnerCharacter;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	int ComboCounter { 0 };
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	bool bCanAttack { true };
 };

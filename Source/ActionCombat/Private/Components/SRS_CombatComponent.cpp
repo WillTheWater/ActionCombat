@@ -3,34 +3,35 @@
 
 #include "Components/SRS_CombatComponent.h"
 
+#include "GameFramework/Character.h"
 
-// Sets default values for this component's properties
+
 USRS_CombatComponent::USRS_CombatComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+	PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bStartWithTickEnabled = false;
 }
 
+void USRS_CombatComponent::ComboAttack()
+{
+	if (!bCanAttack) { return; }
+	bCanAttack = false;
+	OwnerCharacter->PlayAnimMontage(AttackMontages[ComboCounter]);
+	ComboCounter++;
+	if (ComboCounter >= AttackMontages.Num())
+	{
+		ComboCounter = 0;
+	}
+}
 
-// Called when the game starts
+void USRS_CombatComponent::ResetAttack()
+{
+	bCanAttack = true;
+}
+
 void USRS_CombatComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+	OwnerCharacter = Cast<ACharacter>(GetOwner());
 }
-
-
-// Called every frame
-void USRS_CombatComponent::TickComponent(float DeltaTime, ELevelTick TickType,
-                                         FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
