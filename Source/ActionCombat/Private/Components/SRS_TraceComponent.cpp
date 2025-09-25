@@ -26,6 +26,8 @@ void USRS_TraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	if (!bIsAttacking) { return; }
+
 	FVector StartLocation = OwnerSkeletalMesh->GetSocketLocation(TraceSocketStart);
 	FVector EndLocation = OwnerSkeletalMesh->GetSocketLocation(TraceSocketEnd);
 	FQuat Rotation = OwnerSkeletalMesh->GetSocketQuaternion(TraceSocketRotation);
@@ -59,6 +61,7 @@ void USRS_TraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 		for (const FHitResult& Hit : OutHits)
 		{
 			AActor* HitActor = Hit.GetActor();
+			if (TargetsToIgnore.Contains(HitActor)) { continue; }
 			HitActor->TakeDamage
 			(
 				CharacterDamage,
@@ -66,6 +69,7 @@ void USRS_TraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 				GetOwner()->GetInstigatorController(),
 				GetOwner()
 			);
+			TargetsToIgnore.AddUnique(HitActor);
 		}
 	}
 	if (bShouldDrawDebugShapes)
@@ -81,6 +85,14 @@ void USRS_TraceComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 			1.0f,
 			1.50f
 		);
+	}
+}
+
+void USRS_TraceComponent::HandleResetAttack()
+{
+	if (TargetsToIgnore.Num() > 0)
+	{
+		TargetsToIgnore.Empty();
 	}
 }
 

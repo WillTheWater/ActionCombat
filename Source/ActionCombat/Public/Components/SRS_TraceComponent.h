@@ -16,6 +16,12 @@ public:
 	USRS_TraceComponent();
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void HandleResetAttack();
+
+	bool GetIsAttacking() const { return bIsAttacking; }
+	void SetIsAttacking(bool bNewIsAttacking) { bIsAttacking = bNewIsAttacking; }
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -37,4 +43,10 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
 	bool bShouldDrawDebugShapes { false };
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	bool bIsAttacking { false };
+
+	UPROPERTY()
+	TArray<AActor*> TargetsToIgnore;
 };
