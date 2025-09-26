@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "EnumTypes/SRS_Stats.h"
 #include "SRS_StatsComponent.generated.h"
 
 
@@ -14,7 +15,9 @@ class ACTIONCOMBAT_API USRS_StatsComponent : public UActorComponent
 
 public:
 	USRS_StatsComponent();
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat")
+	TMap<TEnumAsByte<EStats>, float> Stats;
 
 protected:
 	virtual void BeginPlay() override;
