@@ -19,6 +19,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat")
 	TMap<TEnumAsByte<EStats>, float> Stats;
 
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void ReduceHealth(float Damage);
+
 protected:
 	virtual void BeginPlay() override;
 };

@@ -7,6 +7,8 @@
 #include "Interfaces/SRS_EnemyInterface.h"
 #include "SRS_Boss.generated.h"
 
+class USRS_StatsComponent;
+
 UCLASS()
 class ACTIONCOMBAT_API ASRS_Boss : public ACharacter, public ISRS_EnemyInterface
 {
@@ -14,8 +16,11 @@ class ACTIONCOMBAT_API ASRS_Boss : public ACharacter, public ISRS_EnemyInterface
 
 public:
 	ASRS_Boss();
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 protected:
 	virtual void BeginPlay() override;
+
+private:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	USRS_StatsComponent* StatsComponent;
 };
