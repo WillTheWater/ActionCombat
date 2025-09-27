@@ -22,6 +22,7 @@ void USRS_CombatComponent::ComboAttack()
 	{
 		ComboCounter = 0;
 	}
+	OnAttack.Broadcast(StaminaCost);
 }
 
 void USRS_CombatComponent::ResetAttack()

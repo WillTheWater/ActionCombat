@@ -21,6 +21,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Action Combat")
 	void ReduceHealth(float Damage);
+	
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void ReduceStamina(float StaminaCost);
 
 protected:
 	virtual void BeginPlay() override;

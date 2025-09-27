@@ -24,3 +24,10 @@ void USRS_StatsComponent::BeginPlay()
 	Super::BeginPlay();
 	
 }
+
+void USRS_StatsComponent::ReduceStamina(float StaminaCost)
+{
+	if (Stats[EStats::Stamina] <= 0) { return; }
+	Stats[EStats::Stamina] -= StaminaCost;
+	Stats[EStats::Stamina] = UKismetMathLibrary::FClamp(Stats[EStats::Stamina], 0.0f, Stats[EStats::MaxStamina]);
+}
