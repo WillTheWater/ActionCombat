@@ -4,6 +4,7 @@
 #include "Components/SRS_CombatComponent.h"
 
 #include "GameFramework/Character.h"
+#include "Interfaces/SRS_PlayerInterface.h"
 
 
 USRS_CombatComponent::USRS_CombatComponent()
@@ -14,6 +15,11 @@ USRS_CombatComponent::USRS_CombatComponent()
 
 void USRS_CombatComponent::ComboAttack()
 {
+	if (OwnerCharacter->Implements<USRS_PlayerInterface>())
+	{
+		ISRS_PlayerInterface* PlayerInterface = Cast<ISRS_PlayerInterface>(OwnerCharacter);
+		if (!PlayerInterface || !PlayerInterface->HasEnoughStamina(StaminaCost)) { return;}
+	}
 	if (!bCanAttack) { return; }
 	bCanAttack = false;
 	OwnerCharacter->PlayAnimMontage(AttackMontages[ComboCounter]);

@@ -42,3 +42,8 @@ float ASRS_MainCharacter::GetDamage()
 	return StatsComponent->Stats[EStats::Strength];
 }
 
+bool ASRS_MainCharacter::HasEnoughStamina(float StaminaCost)
+{
+	return StatsComponent->Stats[EStats::Stamina] >= StaminaCost;
+}
+

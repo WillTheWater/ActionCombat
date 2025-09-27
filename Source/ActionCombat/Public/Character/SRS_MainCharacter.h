@@ -26,6 +26,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual float GetDamage() override;
+	virtual bool HasEnoughStamina(float StaminaCost) override;
 
 	USRS_StatsComponent* GetStatsComponent() const { return StatsComponent; }
 	USRS_CombatComponent* GetCombatComponent() const { return CombatComponent; }

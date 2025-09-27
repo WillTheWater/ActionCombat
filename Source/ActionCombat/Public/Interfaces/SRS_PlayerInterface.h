@@ -17,4 +17,5 @@ class ACTIONCOMBAT_API ISRS_PlayerInterface
 	GENERATED_BODY()
 
 public:
+	virtual bool HasEnoughStamina(float StaminaCost) { return true; }
 };
