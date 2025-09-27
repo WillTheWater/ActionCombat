@@ -14,8 +14,7 @@
 
 ASRS_MainCharacter::ASRS_MainCharacter()
 {
-	PrimaryActorTick.bCanEverTick = false;
-	PrimaryActorTick.bStartWithTickEnabled = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	StatsComponent = CreateDefaultSubobject<USRS_StatsComponent>(TEXT("Stats Component"));
 	CombatComponent = CreateDefaultSubobject<USRS_CombatComponent>(TEXT("Combat Component"));

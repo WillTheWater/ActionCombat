@@ -24,7 +24,23 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category = "Action Combat")
 	void ReduceStamina(float StaminaCost);
+	
+	UFUNCTION(BlueprintCallable, Category = "Action Combat")
+	void RegenStamina();
+
+	UFUNCTION()
+	void EnableStaminaRegen();
 
 protected:
 	virtual void BeginPlay() override;
+
+private:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	float StaminaRegenRate { 10.f };
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	bool bCanRegenStamina { true };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Action Combat", meta = (AllowPrivateAccess = "true"))
+	float StaminaRegenDelay { 2.f };
 };
